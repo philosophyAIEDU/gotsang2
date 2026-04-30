@@ -1,0 +1,22 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500&family=Lexend:wght@300;400;500;600;700&display=swap');
+
+@theme {
+  --font-headline: 'Lexend', sans-serif;
+  --font-display: 'Lexend', sans-serif;
+  --font-body: 'Be Vietnam Pro', sans-serif;
+  --font-label: 'Lexend', sans-serif;
+  --color-background: #FAFAF7;
+}
+
+body {
+  background-color: #FAFAF7;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
