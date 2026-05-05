@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAppStore } from '../store';
 import { calculateProgress } from '../lib/logic';
+import { Trophy } from 'lucide-react';
 
 export function ProgressCard() {
   const { routines, completions, currentDate } = useAppStore();
@@ -17,22 +18,30 @@ export function ProgressCard() {
   const strokeDashoffset = strokeDasharray - (strokeDasharray * rate) / 100;
 
   return (
-    <section className="bg-gradient-to-br from-emerald-600 to-emerald-500 rounded-[24px] p-7 shadow-lg shadow-emerald-900/20 flex items-center justify-between text-white relative overflow-hidden" id="progress-card">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.15),transparent_50%)] pointer-events-none"></div>
-      <div className="flex flex-col gap-2 relative z-10 w-[60%]">
-        <h2 className="font-headline text-[20px] font-semibold tracking-tight break-keep leading-tight">{message}</h2>
-        <p className="font-body text-[14px] text-emerald-50 font-medium">
+    <section className="bg-gradient-to-br from-violet-600 via-violet-500 to-purple-500 rounded-[32px] p-8 shadow-premium flex items-center justify-between text-white relative overflow-hidden" id="progress-card">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.2),transparent_60%)] pointer-events-none"></div>
+      <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div className="flex flex-col gap-3 relative z-10 w-[65%]">
+        <div className="flex items-center gap-2 mb-1">
+          <div className="bg-white/20 p-1 rounded-lg backdrop-blur-md">
+            <Trophy size={14} className="text-white" />
+          </div>
+          <span className="font-label text-[12px] font-bold tracking-widest uppercase opacity-90">Daily Goal</span>
+        </div>
+        <h2 className="font-headline text-[22px] font-bold tracking-tight break-keep leading-[1.3] drop-shadow-sm">{message}</h2>
+        <p className="font-body text-[14px] text-white/80 font-medium">
           {total > 0 ? `${total}개 중 ${completed}개의 루틴 완료` : "오늘 계획된 루틴이 없어요."}
         </p>
       </div>
       
       <div className="relative w-24 h-24 flex items-center justify-center z-10 shrink-0">
-        <svg className="w-full h-full -rotate-90 transform drop-shadow-[0_0_8px_rgba(255,255,255,0.4)] transition-all duration-1000 ease-out" viewBox="0 0 100 100">
-          <circle className="text-white/20" cx="50" cy="50" fill="none" r="42" stroke="currentColor" strokeWidth="4"></circle>
-          <circle className="text-white transition-all duration-1000 ease-out" cx="50" cy="50" fill="none" r="42" stroke="currentColor" strokeDasharray={strokeDasharray} strokeDashoffset={strokeDashoffset} strokeLinecap="round" strokeWidth="4"></circle>
+        <svg className="w-full h-full -rotate-90 transform drop-shadow-[0_0_12px_rgba(255,255,255,0.3)] transition-all duration-1000 ease-out" viewBox="0 0 100 100">
+          <circle className="text-white/20" cx="50" cy="50" fill="none" r="42" stroke="currentColor" strokeWidth="6"></circle>
+          <circle className="text-white transition-all duration-1000 ease-out" cx="50" cy="50" fill="none" r="42" stroke="currentColor" strokeDasharray={strokeDasharray} strokeDashoffset={strokeDashoffset} strokeLinecap="round" strokeWidth="6"></circle>
         </svg>
         <div className="absolute flex flex-col items-center">
-          <span className="font-headline text-[20px] font-bold tracking-tight">{completed}/{total}</span>
+          <span className="font-headline text-[22px] font-extrabold tracking-tight">{rate}%</span>
         </div>
       </div>
     </section>

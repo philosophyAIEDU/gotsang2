@@ -1,29 +1,44 @@
 import React from 'react';
 import { getKoreanDateString } from '../lib/utils';
+import { User as UserIcon, LogOut, LogIn } from 'lucide-react';
 import { useAppStore } from '../store';
-import { calculateStreak } from '../lib/logic';
 
 export function Header() {
-  const { routines, completions, currentDate } = useAppStore();
-  const streak = calculateStreak(routines, completions, currentDate);
-  
+  const { user, login, logout } = useAppStore();
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 h-20 bg-[#FAFAF7]/90 backdrop-blur-md max-w-[430px] mx-auto right-0">
-      <div className="flex flex-col gap-1">
-        <span className="font-label text-[11px] text-stone-500 tracking-wide font-medium">
-          {getKoreanDateString(currentDate)}
-        </span>
-        <span className="font-headline text-[26px] text-emerald-700 tracking-tight font-bold">갓생 루틴</span>
+    <header className="fixed top-0 left-0 right-0 h-20 bg-white/70 backdrop-blur-xl z-50 border-b border-slate-100/50 px-6 flex items-center justify-between">
+      <div className="flex flex-col">
+        <span className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">Routine Tracker</span>
+        <h1 className="font-headline text-2xl font-black text-violet-600 tracking-tighter">갓생 루틴</h1>
       </div>
-      <div className="flex items-center gap-3">
-        {streak > 0 && (
-          <div className="bg-gradient-to-r from-emerald-500 to-emerald-400 text-white px-3 py-1.5 rounded-full font-label text-[11px] font-semibold flex items-center gap-1 shadow-md shadow-emerald-500/20">
-            <span>🔥</span> {streak}일 연속
+      
+      <div className="flex items-center gap-4">
+        {user ? (
+          <div className="flex items-center gap-3">
+            <div className="flex flex-col items-end">
+              <span className="text-[13px] font-bold text-slate-800">{user.displayName}</span>
+              <button 
+                onClick={logout}
+                className="text-[11px] font-bold text-slate-400 hover:text-violet-600 transition-colors flex items-center gap-1"
+              >
+                <LogOut size={10} /> Sign Out
+              </button>
+            </div>
+            <img 
+              src={user.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.uid}`} 
+              alt="profile" 
+              className="w-11 h-11 rounded-2xl object-cover shadow-premium border-2 border-white ring-1 ring-violet-100"
+            />
           </div>
+        ) : (
+          <button 
+            onClick={login}
+            className="flex items-center gap-2 px-5 py-2.5 bg-violet-600 text-white rounded-2xl font-bold text-[14px] shadow-premium hover:bg-violet-700 transition-all active:scale-95"
+          >
+            <LogIn size={18} /> Sign In
+          </button>
         )}
-        <div className="w-10 h-10 rounded-full bg-stone-200 overflow-hidden ring-2 ring-white shadow-sm">
-          <img alt="User profile" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop" />
-        </div>
       </div>
     </header>
   );

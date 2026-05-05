@@ -15,7 +15,7 @@ export function CategoryFilter() {
   ];
 
   return (
-    <section className="flex gap-2.5 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
+    <section className="flex gap-3 overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4">
       {categories.map(cat => {
         const isActive = selectedCategory === cat.id;
         return (
@@ -23,10 +23,10 @@ export function CategoryFilter() {
             key={cat.id}
             onClick={() => setSelectedCategory(cat.id)}
             className={cn(
-              "whitespace-nowrap px-5 py-2.5 rounded-full font-label text-[13px] font-medium shadow-sm transition-all",
+              "whitespace-nowrap px-6 py-3 rounded-2xl font-label text-[13px] font-bold transition-all duration-300",
               isActive 
-                ? "bg-emerald-500 text-white shadow-emerald-500/20" 
-                : "bg-white/60 backdrop-blur-md border border-white/80 text-stone-600 hover:bg-white/80"
+                ? "bg-violet-600 text-white shadow-lg shadow-violet-600/25 scale-105" 
+                : "bg-white border border-slate-100 text-slate-500 hover:bg-slate-50 hover:border-slate-200"
             )}
           >
             {cat.label}
